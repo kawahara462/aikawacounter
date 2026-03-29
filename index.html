@@ -8,12 +8,14 @@
 
 <h1>カウンター</h1>
 <p id="count">読み込み中...</p>
+
 <button onclick="increment()">+1</button>
+<button onclick="decrement()">-1</button>
 
 <script>
 /* ===== 設定（ここだけ書き換え） ===== */
-const URL = "https://good-fawn-39790.upstash.io";  // ← 自分のURL
-const TOKEN = "AZtuAAIncDE0YzJlNDk2M2RjOTQ0NjUxYTU0NTk2OWQ2YTgwNjVkM3AxMzk3OTA";             // ← 自分のトークン
+const URL = "https://good-fawn-39790.upstash.io";
+const TOKEN = "AZtuAAIncDE0YzJlNDk2M2RjOTQ0NjUxYTU0NTk2OWQ2YTgwNjVkM3AxMzk3OTA";
 /* ================================== */
 
 // 初期読み込み
@@ -23,7 +25,7 @@ async function load() {
       Authorization: `Bearer ${TOKEN}`
     }
   });
- 
+
   const data = await res.json();
   document.getElementById("count").innerText = data.result || 0;
 }
@@ -31,6 +33,18 @@ async function load() {
 // +1
 async function increment() {
   const res = await fetch(`${URL}/incr/counter`, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`
+    }
+  });
+
+  const data = await res.json();
+  document.getElementById("count").innerText = data.result;
+}
+
+// -1
+async function decrement() {
+  const res = await fetch(`${URL}/decr/counter`, {
     headers: {
       Authorization: `Bearer ${TOKEN}`
     }
